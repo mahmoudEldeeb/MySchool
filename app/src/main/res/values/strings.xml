@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">My School</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="acc_drawer_open">Email</string>
+
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_main3">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings"></string>
+    <string name="hello">hello</string>
+    <string name="master_name">jack</string>
+    <string name="master_job">teacher math</string>
+    <string name="hello_parent">hello parent</string>
+    <string name="post">hello all
+    this is a new term ,and we hope you are happy with us,this is our new app by it you can communicat with stuff and you can atrack the bus
+    we wish you love it </string>
+
+    <string name="name">Name : </string>
+    <string name="age">Age : </string>
+    <string name="Job">Job : </string>
+    <string name="age1">25</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="children_name">children name</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="user_name">user name</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="BAS_URL">http://myschool.890m.com/</string>
+    <string name="wrong_email">**This email already exist**</string>
+    <string name="no_child_name">**no children have this name**</string>
+    <string name="login_error">**Email or password must be wrong**</string>
+    <string name="something_wrong">there is something error try later</string>
+    <string name="fill_all_record">please fill all record</string>
+    <string name="buss">buss</string>
+    <string name="stop_trip">Stop trip</string>
+    <string name="start_trip">Start trip</string>
+    <string name="no_network">no network try later</string>
+    <string name="API_KEY"></string>
+</resources>

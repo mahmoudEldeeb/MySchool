@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "893310292927",
+    "firebase_url": "https://my-school-a6597.firebaseio.com",
+    "project_id": "my-school-a6597",
+    "storage_bucket": "my-school-a6597.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893310292927:android:65776475723591f0",
+        "android_client_info": {
+          "package_name": "com.programs.lala.myschool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893310292927-qrjeet8n36p4lg3bn28ovbdnk4edknp6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.programs.lala.myschool",
+            "certificate_hash": "72e242f526f7e8c033e53c750d2d8d2ea550e337"
+          }
+        },
+        {
+          "client_id": "893310292927-4moob71brqg6i8h77p35k83dlfh8pmod.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCO4nH_Vm4jQGPRzxNgLzH0Sz4ZIg34mwo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893310292927-4moob71brqg6i8h77p35k83dlfh8pmod.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
