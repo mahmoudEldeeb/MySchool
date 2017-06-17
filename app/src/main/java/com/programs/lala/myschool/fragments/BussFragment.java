@@ -49,6 +49,7 @@ public class BussFragment extends Fragment implements OnMapReadyCallback {
 
     GoogleMap mGoogleMap;
     FloatingActionButton fb;
+
     public BussFragment() {
     }
 
@@ -57,8 +58,8 @@ public class BussFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View view=inflater.inflate(R.layout.fragment_buss, container, false);
-fb= (FloatingActionButton) view.findViewById(R.id.fb);
+        View view = inflater.inflate(R.layout.fragment_buss, container, false);
+        fb = (FloatingActionButton) view.findViewById(R.id.fb);
         FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         SupportMapFragment fragment = new SupportMapFragment();
@@ -66,17 +67,18 @@ fb= (FloatingActionButton) view.findViewById(R.id.fb);
         transaction.commit();
 
         fragment.getMapAsync(this);
-fb.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
+        fb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
 
-        if (new Check(getContext()).isNetworkAvailable()){
-            getLocation();}
-        else    Toast.makeText(getContext(),getText(R.string.no_network) , Toast.LENGTH_SHORT).show();
+                if (new Check(getContext()).isNetworkAvailable()) {
+                    getLocation();
+                } else
+                    Toast.makeText(getContext(), getText(R.string.no_network), Toast.LENGTH_SHORT).show();
 
-    }
-});
+            }
+        });
 
         return view;
 
@@ -84,23 +86,24 @@ fb.setOnClickListener(new View.OnClickListener() {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mGoogleMap=googleMap;
+        mGoogleMap = googleMap;
 
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         //goToLocationZoom(30.044452, 31.235512, 17);
         getLocation();
     }
 
-    private void goToLocationZoom(double lat, double lng,float z) {
-        LatLng li=new LatLng(lat,lng);
-        MarkerOptions mar=new MarkerOptions()
+    private void goToLocationZoom(double lat, double lng, float z) {
+        LatLng li = new LatLng(lat, lng);
+        MarkerOptions mar = new MarkerOptions()
                 .title((String) getText(R.string.buss))
                 .position(li);
         mGoogleMap.addMarker(mar);
-        CameraUpdate update= CameraUpdateFactory.newLatLngZoom(li,z);
+        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(li, z);
         mGoogleMap.moveCamera(update);
     }
-    public void getLocation(){
+
+    public void getLocation() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.BAS_URL))
                 .addConverterFactory(GsonConverterFactory.create())
@@ -118,10 +121,10 @@ fb.setOnClickListener(new View.OnClickListener() {
                 try {
                     RegisterResult = response.body().string();
                     JSONObject jso = new JSONObject(RegisterResult);
-                    String longitude=jso.getString("longitude");
+                    String longitude = jso.getString("longitude");
 
-                    String latitude=jso.getString("latitude");
-                    goToLocationZoom(Double.parseDouble(latitude),Double.parseDouble(longitude),17);
+                    String latitude = jso.getString("latitude");
+                    goToLocationZoom(Double.parseDouble(latitude), Double.parseDouble(longitude), 17);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -130,12 +133,11 @@ fb.setOnClickListener(new View.OnClickListener() {
                 }
 
 
-
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getContext(),getText(R.string.something_wrong) , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getText(R.string.something_wrong), Toast.LENGTH_SHORT).show();
             }
         });
 

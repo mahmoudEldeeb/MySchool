@@ -24,15 +24,14 @@ public class MessageDbHelper extends SQLiteOpenHelper {
                 "CREATE TABLE " + MessageContract.MessageEntry.FIRST_TABLE_NAME + " (" +
 
 
-                        MessageContract.MessageEntry.COLUMN_id             + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                        MessageContract.MessageEntry.COLUMN_sender_id              +" Text NOT NULL,"+
-                        MessageContract.MessageEntry.COLUMN_receive_id              +" Text NOT NULL,"+
-                        MessageContract.MessageEntry.COLUMN_name              +" Text NOT NULL,"+
-                        MessageContract.MessageEntry.COLUMN_message             +" Text NOT NULL,"+
-                        MessageContract.MessageEntry.COLUMN_sender_image              +" Text NOT NULL,"+
-                        MessageContract.MessageEntry.COLUMN_type            +" INTEGER"+
+                        MessageContract.MessageEntry.COLUMN_id + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                        MessageContract.MessageEntry.COLUMN_sender_id + " Text NOT NULL," +
+                        MessageContract.MessageEntry.COLUMN_receive_id + " Text NOT NULL," +
+                        MessageContract.MessageEntry.COLUMN_name + " Text NOT NULL," +
+                        MessageContract.MessageEntry.COLUMN_message + " Text NOT NULL," +
+                        MessageContract.MessageEntry.COLUMN_sender_image + " Text NOT NULL," +
+                        MessageContract.MessageEntry.COLUMN_type + " INTEGER" +
                         ");";
-
 
 
         db.execSQL(SQL_CREATE_MESSAGE_TABLE);
@@ -40,7 +39,7 @@ public class MessageDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " +  MessageContract.MessageEntry.FIRST_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + MessageContract.MessageEntry.FIRST_TABLE_NAME);
         onCreate(db);
 
     }

@@ -17,7 +17,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import  com.google.android.gms.location.LocationListener;
+
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -45,19 +46,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * A simple {@link Fragment} subclass.
  */
 public class GetBusLocation extends Fragment implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener,LocationListener {
+        GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
 
-     GoogleApiClient mGoogleApiClient;
+    GoogleApiClient mGoogleApiClient;
 
-     boolean state = false;
+    boolean state = false;
 
-     LocationRequest mLocationRequest;
+    LocationRequest mLocationRequest;
 
 
-     static int UPDATE_INTERVAL = 1000*60;
+    static int UPDATE_INTERVAL = 1000 * 60;
 
-     Button trip;
+    Button trip;
+
     public GetBusLocation() {
         // Required empty public constructor
     }
@@ -67,10 +69,10 @@ public class GetBusLocation extends Fragment implements GoogleApiClient.Connecti
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-View view =inflater.inflate(R.layout.fragment_get_bus_location, container, false);
+        View view = inflater.inflate(R.layout.fragment_get_bus_location, container, false);
 
         Log.e("Token is ", FirebaseInstanceId.getInstance().getToken());
-        trip= (Button) view.findViewById(R.id.trip);
+        trip = (Button) view.findViewById(R.id.trip);
         buildGoogleApiClient();
         createLocationRequest();
 
@@ -80,14 +82,14 @@ View view =inflater.inflate(R.layout.fragment_get_bus_location, container, false
                 if (!state) {
 
 
-                    if (new Check(getContext()).isNetworkAvailable()){
+                    if (new Check(getContext()).isNetworkAvailable()) {
                         trip.setText(getString(R.string.stop_trip));
 
                         state = true;
 
                         startLocationChange();
-                    }
-                    else    Toast.makeText(getContext(),getText(R.string.no_network) , Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(getContext(), getText(R.string.no_network), Toast.LENGTH_SHORT).show();
 
                 } else {
                     trip.setText(getString(R.string.start_trip));
@@ -101,11 +103,8 @@ View view =inflater.inflate(R.layout.fragment_get_bus_location, container, false
             }
         });
 
-        return view;}
-
-
-
-
+        return view;
+    }
 
 
     protected synchronized void buildGoogleApiClient() {
@@ -140,14 +139,14 @@ View view =inflater.inflate(R.layout.fragment_get_bus_location, container, false
     public void onLocationChanged(Location location) {
         double a = location.getLongitude();
         double b = location.getLatitude();
-        sendLocation(a,b);
+        sendLocation(a, b);
 
     }
 
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        }
+    }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -156,11 +155,12 @@ View view =inflater.inflate(R.layout.fragment_get_bus_location, container, false
 
     @Override
     public void onConnectionSuspended(int i) {
-        if(state) {
+        if (state) {
             startLocationChange();
         }
     }
-    public void sendLocation(double longitude,double latitude){
+
+    public void sendLocation(double longitude, double latitude) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.BAS_URL))
                 .addConverterFactory(GsonConverterFactory.create())
@@ -168,8 +168,8 @@ View view =inflater.inflate(R.layout.fragment_get_bus_location, container, false
         final Call<ResponseBody> connection;
         GetData getData = retrofit.create(GetData.class);
 
-        connection = getData.sendLocation(longitude,latitude);
-                connection.enqueue(new Callback<ResponseBody>() {
+        connection = getData.sendLocation(longitude, latitude);
+        connection.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -185,12 +185,11 @@ View view =inflater.inflate(R.layout.fragment_get_bus_location, container, false
                 }
 
 
-
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getActivity(),getText(R.string.something_wrong) , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getText(R.string.something_wrong), Toast.LENGTH_SHORT).show();
 
 
             }

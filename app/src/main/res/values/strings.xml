@@ -46,4 +46,14 @@
     <string name="start_trip">Start trip</string>
     <string name="no_network">no network try later</string>
     <string name="API_KEY"></string>
+    <string name="send_button">send button</string>
+    <string name="account_Profile_Image">account Profile Image</string>
+    <string name="messge">make chat</string>
+    <string name="home">home</string>
+    <string name="bus">bus</string>
+    <string name="accounts">accounts</string>
+    <string name="messageImge">message Imge</string>
+    <string name="personImage">person Image</string>
+    <string name="Messages">Messages</string>
+
 </resources>

@@ -7,7 +7,7 @@ import java.util.List;
  */
 
 public class ResultAccountModel {
-    List<AccountModel>acount;
+    List<AccountModel> acount;
 
     public List<AccountModel> getAcount() {
         return acount;

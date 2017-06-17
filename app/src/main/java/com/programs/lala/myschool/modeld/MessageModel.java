@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by melde on 6/14/2017.
  */
 
-public class MessageModel implements Serializable{
+public class MessageModel implements Serializable {
     String sender_id;
     String receiver_id;
     String name;

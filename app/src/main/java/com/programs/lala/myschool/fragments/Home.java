@@ -44,7 +44,8 @@ public class Home extends Fragment {
 
     RecyclerView recyclerView;
     PostsAdapter adapter;
-List<PostModel>postsList=new ArrayList<>();
+    List<PostModel> postsList = new ArrayList<>();
+
     public Home() {
         // Required empty public constructor
     }
@@ -54,48 +55,48 @@ List<PostModel>postsList=new ArrayList<>();
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View row= inflater.inflate(R.layout.fragment_home, container, false);
+        View row = inflater.inflate(R.layout.fragment_home, container, false);
 
 
-        recyclerView = (RecyclerView)row.findViewById(R.id.posts);
+        recyclerView = (RecyclerView) row.findViewById(R.id.posts);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-       if (new Check(getContext()).isNetworkAvailable()){
-        getPosts();}
-        else    Toast.makeText(getContext(),getText(R.string.no_network) , Toast.LENGTH_SHORT).show();
+        if (new Check(getContext()).isNetworkAvailable()) {
+            getPosts();
+        } else
+            Toast.makeText(getContext(), getText(R.string.no_network), Toast.LENGTH_SHORT).show();
 
         return row;
     }
 
 
+    public void getPosts() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getString(R.string.BAS_URL))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        final Call<ResultPostModel> connection;
+        GetData loginObgect = retrofit.create(GetData.class);
 
-    public void getPosts(){
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(getString(R.string.BAS_URL))
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-    final Call<ResultPostModel> connection;
-    GetData loginObgect = retrofit.create(GetData.class);
+        connection = loginObgect.getPosts();
+        connection.enqueue(new Callback<ResultPostModel>() {
+            @Override
+            public void onResponse(Call<ResultPostModel> call, Response<ResultPostModel> response) {
+                postsList = response.body().getPost();
 
-    connection = loginObgect.getPosts();
-    connection.enqueue(new Callback<ResultPostModel>() {
-        @Override
-        public void onResponse(Call<ResultPostModel> call, Response<ResultPostModel> response) {
-            postsList=response.body().getPost();
+                adapter = new PostsAdapter(getContext(), postsList);
+                recyclerView.setAdapter(adapter);
+            }
 
-            adapter = new PostsAdapter(getContext(),postsList);
-            recyclerView.setAdapter(adapter);
-        }
-
-        @Override
-        public void onFailure(Call<ResultPostModel> call, Throwable t) {
-            Toast.makeText(getContext(),getText(R.string.something_wrong) , Toast.LENGTH_SHORT).show();
-
-
-        }
-    });
+            @Override
+            public void onFailure(Call<ResultPostModel> call, Throwable t) {
+                Toast.makeText(getContext(), getText(R.string.something_wrong), Toast.LENGTH_SHORT).show();
 
 
-}
+            }
+        });
+
+
+    }
 
 
 }

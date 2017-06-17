@@ -22,21 +22,20 @@ import java.util.List;
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
     private Context context;
 
-Communication con;
+    Communication con;
 
-List<MessageModel>messageModelList;
+    List<MessageModel> messageModelList;
 
 
+    public MessageAdapter(Context c, List<MessageModel> list) {
 
-    public MessageAdapter( Context c, List<MessageModel>list) {
-
-        this.context=c;
-this.messageModelList=list;
+        this.context = c;
+        this.messageModelList = list;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.item,parent,false);
+        View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
         ViewHolder holder = new ViewHolder(row);
         return holder;
 
@@ -50,9 +49,9 @@ this.messageModelList=list;
             Picasso.with(context)
                     .load(String.valueOf(context.getString(R.string.BAS_URL) + messageModelList.get(position).getImage())).fit()
                     .into(holder.messageImge);
+        } catch (Exception E) {
         }
-        catch (Exception E){}
-      }
+    }
 
     @Override
     public int getItemCount() {
@@ -74,7 +73,7 @@ this.messageModelList=list;
 
             lastMessage = (TextView) itemView.findViewById(R.id.lastMessage);
             sendeName = (TextView) itemView.findViewById(R.id.sendeName);
-           con = (Communication) context;
+            con = (Communication) context;
             itemView.setOnClickListener(this);
 
 
@@ -88,4 +87,4 @@ this.messageModelList=list;
 
         }
     }
-    }
+}

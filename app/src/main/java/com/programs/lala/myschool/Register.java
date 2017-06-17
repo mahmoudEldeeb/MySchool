@@ -30,11 +30,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Register extends AppCompatActivity {
 
-    @InjectView(R.id.name) EditText name;
-    @InjectView(R.id.email) EditText email;
-    @InjectView(R.id.password) EditText password;
-    @InjectView(R.id.childrenName) EditText childrenName;
-    @InjectView(R.id.register) Button register;
+    @InjectView(R.id.name)
+    EditText name;
+    @InjectView(R.id.email)
+    EditText email;
+    @InjectView(R.id.password)
+    EditText password;
+    @InjectView(R.id.childrenName)
+    EditText childrenName;
+    @InjectView(R.id.register)
+    Button register;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +54,8 @@ public class Register extends AppCompatActivity {
             }
         });
     }
-    public void register (){
+
+    public void register() {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.BAS_URL))
@@ -57,7 +64,7 @@ public class Register extends AppCompatActivity {
         final Call<ResponseBody> connection;
         GetData registerFunction = retrofit.create(GetData.class);
 
-        connection = registerFunction.register(name.getText().toString(),email.getText().toString(),password.getText().toString(),"parent of ("+childrenName.getText().toString()+")","parent",childrenName.getText().toString());
+        connection = registerFunction.register(name.getText().toString(), email.getText().toString(), password.getText().toString(), "parent of (" + childrenName.getText().toString() + ")", "parent", childrenName.getText().toString());
         connection.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -67,27 +74,27 @@ public class Register extends AppCompatActivity {
                 try {
                     RegisterResult = response.body().string();
                     JSONObject jso = new JSONObject(RegisterResult);
-                    String succee=jso.getString("succes");
-                    if(succee.equals("true")){
+                    String succee = jso.getString("succes");
+                    if (succee.equals("true")) {
                         SharedPreferences.Editor editor = getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit();
                         editor.putString("id", jso.getString("type"));
-                        editor.putString("type", "parent of ("+childrenName.getText().toString()+")");
+                        editor.putString("type", "parent of (" + childrenName.getText().toString() + ")");
                         editor.putBoolean("logined", true);
-
+                        editor.commit();
 
                         startService(new Intent(Register.this, FCMRegistrationService.class));
-                        Intent intent=new Intent(Register.this,MainActivity.class);
+                        Intent intent = new Intent(Register.this, MainActivity.class);
                         startActivity(intent);
-                    }
-                    else {
-                        String wrong =jso.getString("type");
-                        if(wrong.equals("email")){
+                    } else {
+                        String wrong = jso.getString("type");
+                        if (wrong.equals("email")) {
                             email.setTextColor(getResources().getColor(R.color.colorAccent));
-                        email.setText(getString(R.string.wrong_email));}
-                        else if(wrong.equals("child")){
+                            email.setText(getString(R.string.wrong_email));
+                        } else if (wrong.equals("child")) {
 
                             childrenName.setTextColor(getResources().getColor(R.color.colorAccent));
-                            childrenName.setText(getString(R.string.no_child_name));}
+                            childrenName.setText(getString(R.string.no_child_name));
+                        }
                     }
 
                 } catch (IOException e) {
@@ -97,21 +104,18 @@ public class Register extends AppCompatActivity {
                 }
 
 
-
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-                    Toast.makeText(getBaseContext(),getText(R.string.something_wrong) , Toast.LENGTH_SHORT).show();}
-
-
+                Toast.makeText(getBaseContext(), getText(R.string.something_wrong), Toast.LENGTH_SHORT).show();
+            }
 
 
         });
 
 
-
     }
-    }
+}
 

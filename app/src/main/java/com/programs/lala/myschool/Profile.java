@@ -18,14 +18,15 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class Profile extends AppCompatActivity {
-AccountModel model;
+    AccountModel model;
 
     @InjectView(R.id.message)
     ImageButton message;
     @InjectView(R.id.accountProfileName)
     TextView accountProfileName;
 
-    @InjectView(R.id.accountProfilrJob) TextView accountProfilrJob;
+    @InjectView(R.id.accountProfilrJob)
+    TextView accountProfilrJob;
     @InjectView(R.id.accountProfileAge)
     TextView accountProfileAge;
     @InjectView(R.id.accountProfileImage)
@@ -37,7 +38,7 @@ AccountModel model;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.inject(this);
-        model= (AccountModel) getIntent().getSerializableExtra("accountModel");
+        model = (AccountModel) getIntent().getSerializableExtra("accountModel");
         accountProfileName.setText(model.getName());
         accountProfilrJob.setText(model.getJob());
         accountProfileAge.setText(model.getAge());
@@ -45,14 +46,14 @@ AccountModel model;
             Picasso.with(this)
                     .load(String.valueOf(this.getString(R.string.BAS_URL) + model.getImage())).fit()
                     .into(accountProfileImage);
+        } catch (Exception E) {
         }
-        catch (Exception E){}
         message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id= getBaseContext().getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
+                String id = getBaseContext().getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
                         .getString("id", "0");
-                MessageModel messageModel=new MessageModel();
+                MessageModel messageModel = new MessageModel();
                 messageModel.setReceiver_id(model.getId());
                 messageModel.setName(model.getName());
                 messageModel.setSender_id(id);

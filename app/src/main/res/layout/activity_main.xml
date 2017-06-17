@@ -7,15 +7,17 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <include
-        android:id="@+id/content"
-        layout="@layout/app_bar_main"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</RelativeLayout>
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/content"
+            layout="@layout/app_bar_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -23,14 +25,15 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        android:background="@color/colorPrimary"
-         >
+        android:background="@color/colorPrimary">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
 
             >
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -44,7 +47,7 @@
                 android:gravity="center"
                 android:textSize="@dimen/dimen_20"
                 android:background="@color/colorPrimaryDark"
-                android:elevation="@dimen/post_elevation"/>
+                android:elevation="@dimen/post_elevation" />
 
 
             <android.support.v7.widget.RecyclerView
@@ -55,6 +58,6 @@
                 />
 
         </LinearLayout>
-        </android.support.design.widget.NavigationView>
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

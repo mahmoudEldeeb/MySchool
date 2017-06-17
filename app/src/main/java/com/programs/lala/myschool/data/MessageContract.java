@@ -12,7 +12,7 @@ public class MessageContract {
     public static final String CONTENT_AUTHORITY = "com.programs.lala.myschool";
 
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
-    public static final String PATH_MESSAGE= "MESSAGE";
+    public static final String PATH_MESSAGE = "MESSAGE";
 
     public static final class MessageEntry implements BaseColumns {
 
@@ -28,7 +28,7 @@ public class MessageContract {
         public static final String COLUMN_receive_id = "receive_id";
         public static final String COLUMN_name = "name";
         public static final String COLUMN_message = "message";
-        public static final String COLUMN_type= "type";
+        public static final String COLUMN_type = "type";
         public static final String COLUMN_sender_image = "sender_image";
 
     }

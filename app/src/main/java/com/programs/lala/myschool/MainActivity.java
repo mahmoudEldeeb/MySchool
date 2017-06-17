@@ -55,8 +55,8 @@ import butterknife.InjectView;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         Communication, LoaderCallbacks<Cursor> {
-    MessageModel model=new MessageModel();
-    List<MessageModel>messageList=new ArrayList<>();
+    MessageModel model = new MessageModel();
+    List<MessageModel> messageList = new ArrayList<>();
 
     MessageAdapter adapter;
 
@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity
 
     @InjectView(R.id.content)
     View contentView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,14 +89,13 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
 
 
-
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         //////////////////////////////////
         toggle.setDrawerIndicatorEnabled(false);
 
-        Drawable drawable = ResourcesCompat.getDrawable(getResources(),   R.drawable.ic_message_white_24dp, this.getTheme());
+        Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_message_white_24dp, this.getTheme());
 
         toggle.setHomeAsUpIndicator(drawable);
         toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
         ////////////////////////
-
 
 
         drawer.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
@@ -130,6 +129,17 @@ public class MainActivity extends AppCompatActivity
                                      }
                                  }
         );
+        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        Home fragment = new Home();
+        ft.replace(R.id.fragment, fragment);
+
+        ft.commit();
+
+        accounts.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorPrimary));
+        bus.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorPrimary));
+        home.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark));
 
 
         LoaderCallbacks<Cursor> callback = MainActivity.this;
@@ -140,31 +150,31 @@ public class MainActivity extends AppCompatActivity
         getSupportLoaderManager().initLoader(0, bundleForLoader, callback);
 
         bus.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        String type= getBaseContext().getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
-                .getString("type", "parent");
-        if(type.equals("parent")) {
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                String type = getBaseContext().getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
+                        .getString("type", "parent");
+                if (type.equals("parent")) {
 
-            GetBusLocation fragment = new GetBusLocation();
-            ft.replace(R.id.fragment, fragment);
-        }else{
+                    GetBusLocation fragment = new GetBusLocation();
+                    ft.replace(R.id.fragment, fragment);
+                } else {
 
-            BussFragment fragment = new BussFragment();
-            ft.replace(R.id.fragment, fragment);
+                    BussFragment fragment = new BussFragment();
+                    ft.replace(R.id.fragment, fragment);
 
-        }
-        ft.commit();
-        accounts.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorPrimary));
-        bus.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark));
-        home.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorPrimary));
+                }
+                ft.commit();
+                accounts.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorPrimary));
+                bus.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark));
+                home.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorPrimary));
 
-    }
-});
+            }
+        });
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,7 +184,7 @@ public class MainActivity extends AppCompatActivity
 
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 Home fragment = new Home();
-                    ft.replace(R.id.fragment, fragment);
+                ft.replace(R.id.fragment, fragment);
 
                 ft.commit();
 
@@ -241,13 +251,11 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
 
     @Override
@@ -277,11 +285,11 @@ public class MainActivity extends AppCompatActivity
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(this,
                 MessageContract.MessageEntry.CONTENT_URI
-                , new String[]{MessageContract.MessageEntry.COLUMN_name,MessageContract.MessageEntry.COLUMN_message,
+                , new String[]{MessageContract.MessageEntry.COLUMN_name, MessageContract.MessageEntry.COLUMN_message,
                 MessageContract.MessageEntry.COLUMN_sender_image,
-                MessageContract.MessageEntry.COLUMN_sender_id,  MessageContract.MessageEntry.COLUMN_receive_id
+                MessageContract.MessageEntry.COLUMN_sender_id, MessageContract.MessageEntry.COLUMN_receive_id
         }
-                , null, null, MessageContract.MessageEntry.COLUMN_id+" DESC");
+                , null, null, MessageContract.MessageEntry.COLUMN_id + " DESC");
 
     }
 
@@ -289,31 +297,30 @@ public class MainActivity extends AppCompatActivity
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
         messageList.clear();
-        while (data.moveToNext()){
+        while (data.moveToNext()) {
             model = new MessageModel();
-        model.setName(data.getString(0));
-        model.setMessge(data.getString(1));
-        model.setImage(data.getString(2));
+            model.setName(data.getString(0));
+            model.setMessge(data.getString(1));
+            model.setImage(data.getString(2));
             model.setSender_id(data.getString(3));
             model.setReceiver_id(data.getString(4));
 
-            boolean exist =false;
-        for(int i=0;i<messageList.size();i++){
-           if(model.getName().equals(messageList.get(i).getName())){
-              exist=true;
-               break;
-           }
+            boolean exist = false;
+            for (int i = 0; i < messageList.size(); i++) {
+                if (model.getName().equals(messageList.get(i).getName())) {
+                    exist = true;
+                    break;
+                }
 
-        }
-            if (!exist){
+            }
+            if (!exist) {
                 messageList.add(model);
             }
         }
-        adapter=new MessageAdapter(this,messageList);
+        adapter = new MessageAdapter(this, messageList);
         recyclerView.setAdapter(adapter);
 
     }
-
 
 
     @Override

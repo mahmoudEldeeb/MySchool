@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="@dimen/message_elevation"
 
     android:layout_marginBottom="@dimen/dimen_5"
-    android:layout_marginTop="@dimen/dimen_5"
-    >
+    android:layout_marginTop="@dimen/dimen_5">
 
     <TextView
         android:id="@+id/sendMessage1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="hello how are you"
         android:layout_gravity="left"
         android:gravity="left"
         android:layout_marginRight="@dimen/dimen_50"
@@ -20,6 +19,5 @@
 
         android:background="@drawable/send_message_style"
         android:padding="@dimen/dimen_10"
-        android:fontFamily="sans-serif"
-        />
+        android:fontFamily="sans-serif" />
 </LinearLayout>

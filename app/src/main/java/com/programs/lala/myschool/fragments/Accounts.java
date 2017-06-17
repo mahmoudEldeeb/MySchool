@@ -35,7 +35,8 @@ public class Accounts extends Fragment {
 
     RecyclerView recyclerView;
     AccountsAdapter adapter;
-    List<AccountModel>accountList=new ArrayList<>();
+    List<AccountModel> accountList = new ArrayList<>();
+
     public Accounts() {
         // Required empty public constructor
     }
@@ -45,25 +46,29 @@ public class Accounts extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View row= inflater.inflate(R.layout.fragment_stuff, container, false);
+        View row = inflater.inflate(R.layout.fragment_stuff, container, false);
 
 
-        recyclerView = (RecyclerView)row.findViewById(R.id.stuff_recycle);
+        recyclerView = (RecyclerView) row.findViewById(R.id.stuff_recycle);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        if (new Check(getContext()).isNetworkAvailable()){
-            getAccounts();}
-        else    Toast.makeText(getContext(),getText(R.string.no_network) , Toast.LENGTH_SHORT).show();
+        if (new Check(getContext()).isNetworkAvailable()) {
+            getAccounts();
+        } else
+            Toast.makeText(getContext(), getText(R.string.no_network), Toast.LENGTH_SHORT).show();
 
         return row;
     }
-    public  void getAccounts(){
-        String type= getActivity().getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
-                .getString("type", "parent");
-        if(type.equals("parent")){
-            type="staff";
 
-        }else{type="parent";}
+    public void getAccounts() {
+        String type = getActivity().getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
+                .getString("type", "parent");
+        if (type.equals("parent")) {
+            type = "staff";
+
+        } else {
+            type = "parent";
+        }
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.BAS_URL))
                 .addConverterFactory(GsonConverterFactory.create())
@@ -75,15 +80,15 @@ public class Accounts extends Fragment {
         connection.enqueue(new Callback<ResultAccountModel>() {
             @Override
             public void onResponse(Call<ResultAccountModel> call, Response<ResultAccountModel> response) {
-                accountList=response.body().getAcount();
+                accountList = response.body().getAcount();
 
-                adapter = new AccountsAdapter(getContext(),accountList);
+                adapter = new AccountsAdapter(getContext(), accountList);
                 recyclerView.setAdapter(adapter);
             }
 
             @Override
             public void onFailure(Call<ResultAccountModel> call, Throwable t) {
-                Toast.makeText(getContext(),getText(R.string.something_wrong) , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getText(R.string.something_wrong), Toast.LENGTH_SHORT).show();
 
 
             }

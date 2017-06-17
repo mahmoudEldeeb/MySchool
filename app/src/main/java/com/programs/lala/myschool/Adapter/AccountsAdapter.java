@@ -24,23 +24,20 @@ import butterknife.InjectView;
 
 public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHolder> {
     private Context context;
-Communication con;
-List<AccountModel>accountList;
+    Communication con;
+    List<AccountModel> accountList;
 
 
+    public AccountsAdapter(Context c, List<AccountModel> l) {
 
-
-
-    public AccountsAdapter( Context c,List<AccountModel> l ) {
-
-        this.context=c;
-        this.accountList=l;
+        this.context = c;
+        this.accountList = l;
 
     }
 
     @Override
     public AccountsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_account,parent,false);
+        View row = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_account, parent, false);
         AccountsAdapter.ViewHolder holder = new AccountsAdapter.ViewHolder(row);
         return holder;
 
@@ -48,14 +45,14 @@ List<AccountModel>accountList;
 
     @Override
     public void onBindViewHolder(AccountsAdapter.ViewHolder holder, int position) {
-holder.accountName.setText(accountList.get(position).getName());
+        holder.accountName.setText(accountList.get(position).getName());
         holder.accountJob.setText(accountList.get(position).getJob());
-       try {
-           Picasso.with(context)
-                   .load(String.valueOf(context.getString(R.string.BAS_URL) + accountList.get(position).getImage())).fit()
-                   .into(holder.personImage);
-       }
-       catch (Exception E){}
+        try {
+            Picasso.with(context)
+                    .load(String.valueOf(context.getString(R.string.BAS_URL) + accountList.get(position).getImage())).fit()
+                    .into(holder.personImage);
+        } catch (Exception E) {
+        }
     }
 
     @Override
@@ -64,7 +61,7 @@ holder.accountName.setText(accountList.get(position).getName());
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-         TextView accountName;
+        TextView accountName;
 
         TextView accountJob;
         ImageView personImage;
@@ -72,11 +69,11 @@ holder.accountName.setText(accountList.get(position).getName());
 
         public ViewHolder(View itemView) {
             super(itemView);
-            personImage= (ImageView) itemView.findViewById(R.id.personImage);
+            personImage = (ImageView) itemView.findViewById(R.id.personImage);
 
-            accountName= (TextView) itemView.findViewById(R.id.accountName);
-            accountJob= (TextView) itemView.findViewById(R.id.accountJob);
-            con= (Communication) context;
+            accountName = (TextView) itemView.findViewById(R.id.accountName);
+            accountJob = (TextView) itemView.findViewById(R.id.accountJob);
+            con = (Communication) context;
             itemView.setOnClickListener(this);
 
         }
@@ -84,7 +81,7 @@ holder.accountName.setText(accountList.get(position).getName());
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
-con.onClickAccount(accountList.get(adapterPosition));
+            con.onClickAccount(accountList.get(adapterPosition));
 
         }
     }

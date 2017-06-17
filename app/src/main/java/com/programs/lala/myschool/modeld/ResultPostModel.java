@@ -7,7 +7,7 @@ import java.util.List;
  */
 
 public class ResultPostModel {
-    List<PostModel>post;
+    List<PostModel> post;
 
     public List<PostModel> getPost() {
         return post;

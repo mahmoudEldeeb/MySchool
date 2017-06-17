@@ -24,6 +24,7 @@ public class MessageContentProvider extends ContentProvider {
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private MessageDbHelper mOpenHelper;
+
     public static UriMatcher buildUriMatcher() {
 
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -39,12 +40,10 @@ public class MessageContentProvider extends ContentProvider {
     }
 
 
-
-
     @Override
     public boolean onCreate() {
-        Context context=getContext();
-        messageDbHelper=new MessageDbHelper(context);
+        Context context = getContext();
+        messageDbHelper = new MessageDbHelper(context);
 
         return false;
     }
@@ -53,15 +52,15 @@ public class MessageContentProvider extends ContentProvider {
     @Nullable
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
-        final SQLiteDatabase db=messageDbHelper.getReadableDatabase();
-        int match=sUriMatcher.match(uri);
+        final SQLiteDatabase db = messageDbHelper.getReadableDatabase();
+        int match = sUriMatcher.match(uri);
 
         Cursor recursor = null;
 
-            switch (match) {
-                case MESSAGE:
-                    recursor = db.query(MessageContract.MessageEntry.FIRST_TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
-            }
+        switch (match) {
+            case MESSAGE:
+                recursor = db.query(MessageContract.MessageEntry.FIRST_TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+        }
 
 
         recursor.setNotificationUri(getContext().getContentResolver(), uri);
@@ -77,28 +76,29 @@ public class MessageContentProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-        final SQLiteDatabase db=messageDbHelper.getWritableDatabase();
-        int match=sUriMatcher.match(uri);
+        final SQLiteDatabase db = messageDbHelper.getWritableDatabase();
+        int match = sUriMatcher.match(uri);
 
         Uri returnUri = null;
-        switch (match){
+        switch (match) {
             case MESSAGE:
 
                 Long id;
 
 
-                    values.remove("TABLE_NAME");
-                    id=db.insert(MessageContract.MessageEntry.FIRST_TABLE_NAME,null,values);
+                values.remove("TABLE_NAME");
+                id = db.insert(MessageContract.MessageEntry.FIRST_TABLE_NAME, null, values);
 
-                if(id>0){
+                if (id > 0) {
 
-                    returnUri= ContentUris.withAppendedId(MessageContract.MessageEntry.CONTENT_URI, id);
+                    returnUri = ContentUris.withAppendedId(MessageContract.MessageEntry.CONTENT_URI, id);
                 }
 
                 break;
-            default:break;
+            default:
+                break;
         }
-        getContext().getContentResolver().notifyChange(uri,null);
+        getContext().getContentResolver().notifyChange(uri, null);
         return returnUri;
     }
 

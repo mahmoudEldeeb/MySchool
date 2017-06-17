@@ -36,15 +36,15 @@ public class FCMRegistrationService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-      String token = FirebaseInstanceId.getInstance().getToken();
+        String token = FirebaseInstanceId.getInstance().getToken();
 
-            sendTokenToServer(token);
+        sendTokenToServer(token);
 
     }
 
 
     private void sendTokenToServer(final String token) {
-        String id= getBaseContext().getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
+        String id = getBaseContext().getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
                 .getString("id", "0");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getString(R.string.BAS_URL))
@@ -53,20 +53,17 @@ public class FCMRegistrationService extends IntentService {
         final Call<ResponseBody> connection;
         GetData getData = retrofit.create(GetData.class);
 
-        connection = getData.updateToken(id,token);
-                connection.enqueue(new Callback<ResponseBody>() {
+        connection = getData.updateToken(id, token);
+        connection.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-
-
 
 
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getBaseContext(),getText(R.string.something_wrong) , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), getText(R.string.something_wrong), Toast.LENGTH_SHORT).show();
 
 
             }

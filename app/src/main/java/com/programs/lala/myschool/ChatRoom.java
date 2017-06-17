@@ -45,7 +45,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ChatRoom extends AppCompatActivity implements LoaderCallbacks<Cursor>{
+public class ChatRoom extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     @InjectView(R.id.messageText)
     EditText messageText;
@@ -57,94 +57,97 @@ public class ChatRoom extends AppCompatActivity implements LoaderCallbacks<Curso
     ChatAdapter adapter;
     MessageModel model;
     ChatModel chatModel;
-    List<ChatModel>chatModelList=new ArrayList<>();
+    List<ChatModel> chatModelList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);
         ButterKnife.inject(this);
 
-        model= (MessageModel) getIntent().getSerializableExtra("messageModel");
+        model = (MessageModel) getIntent().getSerializableExtra("messageModel");
         this.setTitle(model.getName());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         LoaderCallbacks<Cursor> callback = ChatRoom.this;
         Bundle bundleForLoader = null;
         getSupportLoaderManager().initLoader(0, bundleForLoader, callback);
-    sendButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (!messageText.getText().toString().isEmpty()){
-                sndMessage();
-            }
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!messageText.getText().toString().isEmpty()) {
+                    sndMessage();
+                }
 
-        }
-    });
+            }
+        });
 
 
     }
-public void sndMessage(){
+
+    public void sndMessage() {
 
 
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(getString(R.string.BAS_URL))
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-    final Call<ResponseBody> connection;
-    GetData getData = retrofit.create(GetData.class);
-        connection =getData.sendMessage(model.getReceiver_id(),model.getSender_id()
-                ,messageText.getText().toString());
-            connection.enqueue(new Callback<ResponseBody>() {
-        @Override
-        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getString(R.string.BAS_URL))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        final Call<ResponseBody> connection;
+        GetData getData = retrofit.create(GetData.class);
+        connection = getData.sendMessage(model.getReceiver_id(), model.getSender_id()
+                , messageText.getText().toString());
+        connection.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-            try {
-                String result=response.body().string();
+                try {
+                    String result = response.body().string();
 
-                JSONObject jso = new JSONObject(result);
-                int success=jso.getInt("success");
-                    if(success==1){
+                    JSONObject jso = new JSONObject(result);
+                    int success = jso.getInt("success");
+                    if (success == 1) {
                         storeMessage();
-                    }
-                    else Toast.makeText(getBaseContext(),getText(R.string.something_wrong) , Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(getBaseContext(), getText(R.string.something_wrong), Toast.LENGTH_SHORT).show();
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
             }
 
-
-        }
-
-        @Override
-        public void onFailure(Call<ResponseBody> call, Throwable t) {
-            Toast.makeText(getBaseContext(),getText(R.string.something_wrong) , Toast.LENGTH_SHORT).show();
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getBaseContext(), getText(R.string.something_wrong), Toast.LENGTH_SHORT).show();
 
 
-        }
-    });
+            }
+        });
 
 
-}
-
-public void storeMessage(){
-    ContentValues contentValues=new ContentValues();
-    contentValues.put("TABLE_NAME", MessageContract.MessageEntry.FIRST_TABLE_NAME);
-    contentValues.put(MessageContract.MessageEntry.COLUMN_sender_id,model.getReceiver_id());
-    contentValues.put(MessageContract.MessageEntry.COLUMN_receive_id,model.getSender_id());
-    contentValues.put(MessageContract.MessageEntry.COLUMN_name,model.getName());
-    contentValues.put(MessageContract.MessageEntry.COLUMN_message,messageText.getText().toString());
-    contentValues.put(MessageContract.MessageEntry.COLUMN_type,"0");
-    contentValues.put(MessageContract.MessageEntry.COLUMN_sender_image,model.getImage()+"");
-
-    Uri uri=getContentResolver().insert(MessageContract.MessageEntry.CONTENT_URI,contentValues);
-    if(uri!=null) {
-        Log.v("ff","good");
-        messageText.setText("");
     }
 
-}
+    public void storeMessage() {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("TABLE_NAME", MessageContract.MessageEntry.FIRST_TABLE_NAME);
+        contentValues.put(MessageContract.MessageEntry.COLUMN_sender_id, model.getReceiver_id());
+        contentValues.put(MessageContract.MessageEntry.COLUMN_receive_id, model.getSender_id());
+        contentValues.put(MessageContract.MessageEntry.COLUMN_name, model.getName());
+        contentValues.put(MessageContract.MessageEntry.COLUMN_message, messageText.getText().toString());
+        contentValues.put(MessageContract.MessageEntry.COLUMN_type, "0");
+        contentValues.put(MessageContract.MessageEntry.COLUMN_sender_image, model.getImage() + "");
+
+        Uri uri = getContentResolver().insert(MessageContract.MessageEntry.CONTENT_URI, contentValues);
+        if (uri != null) {
+            Log.v("ff", "good");
+            messageText.setText("");
+        }
+
+    }
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 //        Log.v("ddd",model.getName());
@@ -161,20 +164,19 @@ public void storeMessage(){
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-chatModelList.clear();
-        while (data.moveToNext()){
+        chatModelList.clear();
+        while (data.moveToNext()) {
             chatModel = new ChatModel();
             chatModel.setMessage(data.getString(0));
             chatModel.setType(data.getInt(1));
 
             chatModelList.add(chatModel);
-            }
+        }
 
-        adapter = new ChatAdapter(getBaseContext(),chatModelList);
+        adapter = new ChatAdapter(getBaseContext(), chatModelList);
         recyclerView.setAdapter(adapter);
-        recyclerView.scrollToPosition(chatModelList.size()-1);
+        recyclerView.scrollToPosition(chatModelList.size() - 1);
     }
-
 
 
     @Override

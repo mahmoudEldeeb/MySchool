@@ -11,13 +11,14 @@ import android.support.v4.app.FragmentActivity;
 
 public class Check {
     Context context;
+
     public Check(Context c) {
-        context=c;
+        context = c;
     }
 
     public boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
-                = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }

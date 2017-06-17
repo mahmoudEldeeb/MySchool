@@ -11,17 +11,19 @@ import butterknife.InjectView;
 
 public class PostDetails extends AppCompatActivity {
 
-    @InjectView(R.id.titleDetails) TextView titleDetails;
+    @InjectView(R.id.titleDetails)
+    TextView titleDetails;
     @InjectView(R.id.descriptionDetail)
     TextView descriptionDetail;
     PostModel model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_details);
         ButterKnife.inject(this);
 
-        model= (PostModel) getIntent().getSerializableExtra("postModel");
+        model = (PostModel) getIntent().getSerializableExtra("postModel");
         titleDetails.setText(model.getTitile());
         descriptionDetail.setText(model.getDescription());
 

@@ -25,17 +25,19 @@ public interface GetData {
             @Field("job") String job,
             @Field("type") String type,
             @Field("children") String children);
+
     @FormUrlEncoded
     @POST("login.php")
     Call<ResponseBody> login(
             @Field("email") String email,
             @Field("password") String password
-      );
+    );
 
 
     @GET("getposts.php")
     Call<ResultPostModel> getPosts(
     );
+
     @FormUrlEncoded
     @POST("getAccounts.php")
     Call<ResultAccountModel> getAccounts(
@@ -46,12 +48,14 @@ public interface GetData {
     @GET("getLocation.php")
     Call<ResponseBody> getLocationBus(
     );
+
     @FormUrlEncoded
     @POST("updateLocation.php")
     Call<ResponseBody> sendLocation(
             @Field("longtiude") double longitude,
             @Field("latitude") double latitude
     );
+
     @FormUrlEncoded
     @POST("sendMessage.php")
     Call<ResponseBody> sendMessage(
@@ -59,6 +63,8 @@ public interface GetData {
             @Field("receiveId") String receiveId,
             @Field("message") String message
     );
+
+    @FormUrlEncoded
     @POST("updateToken.php")
     Call<ResponseBody> updateToken(
             @Field("id") String id,

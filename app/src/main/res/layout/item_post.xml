@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/dimen_10"
     android:elevation="@dimen/post_elevation"
@@ -15,7 +16,7 @@
         android:maxLines="1"
 
         android:fontFamily="sans-serif"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/description"
@@ -23,6 +24,5 @@
         android:layout_height="wrap_content"
         android:text="@string/post"
         android:maxLines="3"
-        android:fontFamily="sans-serif-light"
-        />
+        android:fontFamily="sans-serif-light" />
 </LinearLayout>

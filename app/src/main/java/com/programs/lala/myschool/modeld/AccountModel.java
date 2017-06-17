@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 public class AccountModel implements Serializable {
-    String id ;
+    String id;
     String token;
     String job;
     String name;

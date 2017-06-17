@@ -20,25 +20,16 @@ import java.util.Locale;
  */
 
 public class RemoteViewsControl extends RemoteViewsService {
-     private final DecimalFormat dollarFormat= (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.US);
-    private final DecimalFormat dollarFormatWithPlus = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.US);
-    private final DecimalFormat percentageFormat = (DecimalFormat) NumberFormat.getPercentInstance(Locale.getDefault());
-
 
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        RemoteViewsFactory remoteViewsFactory= new RemoteViewsFactory() {
+        RemoteViewsFactory remoteViewsFactory = new RemoteViewsFactory() {
             private Cursor dataCursor = null;
 
 
             @Override
             public void onCreate() {
-                Log.v("tttt","gg1");
-                dollarFormatWithPlus.setPositivePrefix("+$");
-                percentageFormat.setMaximumFractionDigits(2);
-                percentageFormat.setMinimumFractionDigits(2);
-                percentageFormat.setPositivePrefix("+");
 
             }
 
@@ -56,7 +47,7 @@ public class RemoteViewsControl extends RemoteViewsService {
                                 MessageContract.MessageEntry.COLUMN_message
 
                         }
-                        , null, null, MessageContract.MessageEntry.COLUMN_id+" DESC");
+                        , null, null, MessageContract.MessageEntry.COLUMN_id + " DESC");
 
                 Binder.restoreCallingIdentity(identityToken);
 
@@ -77,9 +68,9 @@ public class RemoteViewsControl extends RemoteViewsService {
                 dataCursor.moveToPosition(position);
 
                 android.widget.RemoteViews views = new android.widget.RemoteViews(getPackageName(), R.layout.item);
-              views.setImageViewResource(R.id.messageImge,R.drawable.ic_account_circle_white_24dp);
-               views.setTextViewText(R.id.name,dataCursor.getString(0));
-                views.setTextViewText(R.id.message,dataCursor.getString(1));
+                views.setImageViewResource(R.id.messageImge, R.drawable.ic_account_circle_white_24dp);
+                views.setTextViewText(R.id.name, dataCursor.getString(0));
+                views.setTextViewText(R.id.message, dataCursor.getString(1));
 
                 return views;
             }
