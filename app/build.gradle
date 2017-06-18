@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'myschool'
             keyPassword '01125878606'
-            storeFile file('./app/myschool1.jks')
+            storeFile file('myschool1.jks')
             storePassword '01125878606'
         }
     }

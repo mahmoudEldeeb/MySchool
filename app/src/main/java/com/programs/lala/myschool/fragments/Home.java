@@ -70,11 +70,12 @@ public class Home extends Fragment {
         connection.enqueue(new Callback<ResultPostModel>() {
             @Override
             public void onResponse(Call<ResultPostModel> call, Response<ResultPostModel> response) {
-                try{
-                postsList = response.body().getPost();
+                try {
+                    postsList = response.body().getPost();
 
-                adapter = new PostsAdapter(getContext(), postsList);
-                recyclerView.setAdapter(adapter);} catch (Exception e) {
+                    adapter = new PostsAdapter(getContext(), postsList);
+                    recyclerView.setAdapter(adapter);
+                } catch (Exception e) {
                     Toast.makeText(getContext(), getText(R.string.something_wrong), Toast.LENGTH_SHORT).show();
 
                 }

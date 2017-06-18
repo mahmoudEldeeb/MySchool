@@ -17,7 +17,7 @@
         android:layout_height="@dimen/dimen_100"
         android:layout_weight="1.5"
         app:srcCompat="@drawable/ic_account_circle_white_24dp"
-        android:contentDescription="@string/personImage"/>
+        android:contentDescription="@string/personImage" />
 
     <LinearLayout
         android:layout_width="0dp"
