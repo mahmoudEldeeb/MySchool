@@ -1,4 +1,4 @@
-package com.programs.lala.myschool.Adapter;
+package com.programs.lala.myschool.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -14,9 +14,6 @@ import com.programs.lala.myschool.modeld.AccountModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * Created by melde on 6/6/2017.

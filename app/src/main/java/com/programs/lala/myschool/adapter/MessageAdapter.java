@@ -1,4 +1,4 @@
-package com.programs.lala.myschool.Adapter;
+package com.programs.lala.myschool.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

@@ -22,11 +22,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
-import com.programs.lala.myschool.Adapter.MessageAdapter;
+import com.programs.lala.myschool.adapter.MessageAdapter;
 import com.programs.lala.myschool.data.MessageContract;
 import com.programs.lala.myschool.fragments.Accounts;
 import com.programs.lala.myschool.fragments.BussFragment;

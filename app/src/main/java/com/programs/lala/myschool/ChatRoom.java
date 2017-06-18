@@ -1,7 +1,6 @@
 package com.programs.lala.myschool;
 
 import android.content.ContentValues;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.v4.content.CursorLoader;
@@ -10,15 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 
-import com.programs.lala.myschool.Adapter.ChatAdapter;
-import com.programs.lala.myschool.Adapter.MessageAdapter;
+import com.programs.lala.myschool.adapter.ChatAdapter;
 import com.programs.lala.myschool.data.MessageContract;
 import com.programs.lala.myschool.interfaces.GetData;
 import com.programs.lala.myschool.modeld.ChatModel;
 import com.programs.lala.myschool.modeld.MessageModel;
-import com.programs.lala.myschool.modeld.PostModel;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,10 +23,8 @@ import java.util.List;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;

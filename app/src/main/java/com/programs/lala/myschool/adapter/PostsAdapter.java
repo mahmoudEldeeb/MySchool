@@ -1,21 +1,17 @@
-package com.programs.lala.myschool.Adapter;
+package com.programs.lala.myschool.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.programs.lala.myschool.R;
 import com.programs.lala.myschool.interfaces.Communication;
 import com.programs.lala.myschool.modeld.PostModel;
-import com.programs.lala.myschool.modeld.ResultPostModel;
 
 import java.util.List;
-
-import retrofit2.Callback;
 
 /**
  * Created by melde on 6/6/2017.

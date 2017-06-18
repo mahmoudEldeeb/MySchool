@@ -6,13 +6,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.programs.lala.myschool.Adapter.AccountsAdapter;
+import com.programs.lala.myschool.adapter.AccountsAdapter;
 import com.programs.lala.myschool.R;
 import com.programs.lala.myschool.assest.Check;
 import com.programs.lala.myschool.interfaces.GetData;
