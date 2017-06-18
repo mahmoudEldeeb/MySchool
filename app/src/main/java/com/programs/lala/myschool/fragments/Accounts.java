@@ -79,10 +79,15 @@ public class Accounts extends Fragment {
         connection.enqueue(new Callback<ResultAccountModel>() {
             @Override
             public void onResponse(Call<ResultAccountModel> call, Response<ResultAccountModel> response) {
-                accountList = response.body().getAcount();
+                try {
+                    accountList = response.body().getAcount();
 
-                adapter = new AccountsAdapter(getContext(), accountList);
-                recyclerView.setAdapter(adapter);
+                    adapter = new AccountsAdapter(getContext(), accountList);
+                    recyclerView.setAdapter(adapter);
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), getText(R.string.something_wrong), Toast.LENGTH_SHORT).show();
+
+                }
             }
 
             @Override
