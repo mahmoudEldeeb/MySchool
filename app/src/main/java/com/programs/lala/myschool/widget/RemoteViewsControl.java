@@ -69,8 +69,8 @@ public class RemoteViewsControl extends RemoteViewsService {
 
                 android.widget.RemoteViews views = new android.widget.RemoteViews(getPackageName(), R.layout.item);
                 views.setImageViewResource(R.id.messageImge, R.drawable.ic_account_circle_white_24dp);
-                views.setTextViewText(R.id.name, dataCursor.getString(0));
-                views.setTextViewText(R.id.message, dataCursor.getString(1));
+                views.setTextViewText(R.id.sendeName, dataCursor.getString(0));
+                views.setTextViewText(R.id.lastMessage, dataCursor.getString(1));
 
                 return views;
             }

@@ -23,8 +23,6 @@ public class ReceiveMessage extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        Log.v("ff", "kk");
-        Log.v("ff", remoteMessage.getData().get("name"));
         //////
         ContentValues contentValues = new ContentValues();
         contentValues.put("TABLE_NAME", MessageContract.MessageEntry.FIRST_TABLE_NAME);
@@ -37,17 +35,17 @@ public class ReceiveMessage extends FirebaseMessagingService {
 
         Uri uri = getContentResolver().insert(MessageContract.MessageEntry.CONTENT_URI, contentValues);
         if (uri != null) {
-            Log.v("ff", "good");
+
         }
 
 
         /////////
 
-        sendNotification(remoteMessage.getData().get("name"));
+        sendNotification(remoteMessage.getData().get("name"),remoteMessage.getData().get("message"));
 
     }
 
-    private void sendNotification(String messageBody) {
+    private void sendNotification(String name,String messageBody) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
@@ -56,7 +54,7 @@ public class ReceiveMessage extends FirebaseMessagingService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("FCM Message")
+                .setContentTitle(messageBody)
                 .setContentText(messageBody)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)

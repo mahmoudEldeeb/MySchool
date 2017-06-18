@@ -3,6 +3,7 @@ package com.programs.lala.myschool;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,8 +23,7 @@ import java.io.IOException;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,7 +52,8 @@ public class Login extends AppCompatActivity {
         declareSharedPrefrenceValues();
         boolean logined = getBaseContext().getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
                 .getBoolean("logined", false);
-        if (logined) {
+
+        if (logined==true) {
             Intent intent = new Intent(Login.this, MainActivity.class);
             startActivity(intent);
         }
@@ -101,12 +102,14 @@ public class Login extends AppCompatActivity {
                     String succee = jso.getString("succes");
                     if (succee.equals("true")) {
 
-
-                        SharedPreferences.Editor editor = getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit();
+                        SharedPreferences  preferences = getApplicationContext().getSharedPreferences("PREFERENCE", 0);
+                        SharedPreferences.Editor editor = preferences.edit();
                         editor.putString("id", jso.getString("type"));
                         editor.putString("type", "staff");
+
                         editor.putBoolean("logined", true);
-                        editor.commit();
+
+                        editor.apply();
                         startService(new Intent(Login.this, FCMRegistrationService.class));
 
                         Intent intent = new Intent(Login.this, MainActivity.class);
@@ -137,11 +140,13 @@ public class Login extends AppCompatActivity {
 
     public void declareSharedPrefrenceValues() {
 
-        SharedPreferences.Editor editor = getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit();
-        editor.putString("id", "0");
-        editor.putString("job", "parent");
-        editor.putString("type", "parent");
-        editor.putBoolean("logined", false);
-        editor.commit();
+        SharedPreferences  preferences = getApplicationContext().getSharedPreferences("PREFERENCE", 0);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        preferences.getString("id", "0");
+        preferences.getString("job", "parent");
+        preferences.getString("type", "parent");
+        preferences.getBoolean("logined", false);
+        editor.apply();
     }
 }

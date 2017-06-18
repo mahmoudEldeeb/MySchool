@@ -4,6 +4,6 @@
     android:initialLayout="@layout/stock_widget_layout"
     android:minWidth="220dp"
     android:minHeight="220dp"
-    android:label="messages"
+    android:label="@string/Messages"
     android:updatePeriodMillis="1000"
     android:resizeMode="vertical" />
